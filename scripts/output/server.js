@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 const iTodoList = require('./iTodoList');
 const iTodo = require('./iTodo');
+const PORT = 4200;
 class TodoList {
     constructor() {
         this.idOfTodo = 0;
@@ -63,8 +64,8 @@ app.delete('/todo/:id', (req, res) => {
     res.send(`I delete item with id : ${id}`);
     displayTodos(res);
 });
-app.listen(3000, () => {
-    `Listening on 3000`;
+app.listen(PORT, () => {
+    `Listening on ${PORT}`;
 });
 function displayTodos(res) {
     res.send(todoList.displayTodos());

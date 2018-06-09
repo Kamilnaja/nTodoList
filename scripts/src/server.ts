@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const iTodoList = require('./iTodoList');
 const iTodo = require('./iTodo');
-
+const PORT = 4200;
 class TodoList implements iTodoList {
     private idOfTodo: number = 0;
     private todoList: Array<iTodo> = [];
@@ -77,8 +77,8 @@ app.delete('/todo/:id', (req: any, res: any) => {
     displayTodos(res);
 })
 
-app.listen(3000, () => {
-    `Listening on 3000`;
+app.listen(PORT, () => {
+    `Listening on ${PORT}`;
 })
 
 function displayTodos(res: any) {
