@@ -1,4 +1,4 @@
 interface iTodo {
-    id: number;
+    id?: number;
     content: string;
 }
