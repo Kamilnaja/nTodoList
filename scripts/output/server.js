@@ -3,6 +3,8 @@ const express = require('express');
 const app = express();
 const PORT = 4200;
 const todo_ctrl = require("./todo_ctrl");
+const cors = require('cors');
+app.use(cors());
 app.get('/todo', todo_ctrl.get_todo);
 app.post('/todo/:content', todo_ctrl.post_todo);
 app.put('/todo/:id/:content', todo_ctrl.put_todo);
