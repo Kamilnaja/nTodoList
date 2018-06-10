@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 class TodoList {
     constructor() {
         this.idOfTodo = 0;
-        this.todoList = [{ id: 0, content: "lorem" }, { id: 1, content: "super" }];
+        this.todoList = [];
     }
     addTodo(todo) {
         todo.id = this.idOfTodo;
@@ -11,12 +11,17 @@ class TodoList {
         this.idOfTodo++;
     }
     saveTodo() {
+        // todo - save to file
     }
     deleteTodo(idToDelete) {
-        for (let index = 0; index < this.todoList.length; index++) {
-            const element = this.todoList[index];
-            if (element.id == idToDelete) {
-                this.todoList.splice(idToDelete, 1);
+        for (let i = 0; i < this.todoList.length; i++) {
+            const element = this.todoList[i];
+            idToDelete = parseInt(idToDelete, 10);
+            if (element.id === idToDelete) {
+                this.todoList.splice(i, 1);
+            }
+            else {
+                console.log("error");
             }
         }
     }

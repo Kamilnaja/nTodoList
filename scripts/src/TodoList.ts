@@ -1,6 +1,6 @@
 class TodoList implements iTodoList {
     private idOfTodo: number = 0;
-    private todoList: Array<iTodo> = [{ id: 0, content: "lorem" }, { id: 1, content: "super" }];
+    private todoList: Array<iTodo> = [];
 
     addTodo(todo: iTodo): void {
         todo.id = this.idOfTodo;
@@ -10,14 +10,17 @@ class TodoList implements iTodoList {
     }
 
     saveTodo(): void {
-
+        // todo - save to file
     }
 
-    deleteTodo(idToDelete: number): void {
-        for (let index = 0; index < this.todoList.length; index++) {
-            const element = this.todoList[index];
-            if (element.id == idToDelete) {
-                this.todoList.splice(idToDelete, 1);
+    deleteTodo(idToDelete: any): void {
+        for (let i = 0; i < this.todoList.length; i++) {
+            const element = this.todoList[i];
+            idToDelete = parseInt(idToDelete, 10);
+            if (element.id === idToDelete) {
+                this.todoList.splice(i, 1);
+            } else {
+                console.log("error")
             }
         }
     }
