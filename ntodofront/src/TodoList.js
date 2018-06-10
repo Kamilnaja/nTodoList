@@ -5,7 +5,9 @@ class TodoList extends Component {
     constructor() {
         super();
         this.state = {
-            todoList: []
+            todoList: [],
+            newTaskContent: '',
+            info: ''
         }
         this.addTodo = this.addTodo.bind(this);
         this.onChange = this.onChange.bind(this);
@@ -21,35 +23,28 @@ class TodoList extends Component {
             })
     }
 
-    addTodo(e) {
-        e.preventDefault();
-        console.log(e);
+    addTodo() {
+        if (this.state.newTaskContent) {
 
-        fetch(`${API_URL}/todo/${this.state.newTaskName}`, {
-            method: 'post',
-        })
-            .then((res) => {
-                if (res.ok) {
-                    console.log(res.json())
-                } else {
-                    throw new Error("Error with server response")
-                }
+            fetch(`${API_URL}/todo/${this.state.newTaskContent}`, {
+                method: 'post',
             })
-            .then(responseData => {
-                this.setState({
-                    todoList:
-                        this.state.todoList.push(this.newTaskName)
-                })
+                .then((response) => response.json())
+                .then(responseData => this.setState({
+                    todoList: responseData,
+                    newTaskContent: '',
+                    info: ''
+                }))
+        } else {
+            this.setState({
+                info: 'wpisz coś'
             })
-
-
-
-
+        }
     }
 
     onChange(e) {
         this.setState({
-            newTaskName: e.target.value
+            newTaskContent: e.target.value
         })
     }
 
@@ -57,10 +52,13 @@ class TodoList extends Component {
         const items = this.state.todoList.map((item, key) => <li key={key}>{item.id} {item.content}</li>)
         return (
             <div>
+                {
+                    this.state.info
+                }
                 <ul>
                     {items}
                 </ul>
-                <input type="text" value={this.state.taskName} onChange={this.onChange} />
+                <input type="text" value={this.state.newTaskContent} onChange={this.onChange} />
                 <button value="submit" onClick={this.addTodo}>Submit</button>
             </div>
 
