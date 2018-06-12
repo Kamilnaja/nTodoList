@@ -46,8 +46,10 @@ class TodoList extends Component {
 
     onEdit(e) {
         console.log('editing item ' + e.target.id);
-        var newTaskValue = window.prompt("Popraw taska");
-        this.doPutRequest(e, newTaskValue);
+        var newTaskValue = window.prompt("Edit your task...");
+        if (newTaskValue) {
+            this.doPutRequest(e, newTaskValue);
+        }
     }
 
     doPutRequest(e, newTaskValue) {
@@ -81,24 +83,35 @@ class TodoList extends Component {
     render() {
         const items = this.state.todoList.map((item, key, uKey) =>
             <li key={key}>
-                {item.id} {item.content}
-                <button onClick={this.onDelete} id={item.id}>
-                    X
-                </button>
-                <button onClick={this.onEdit} id={item.id}>
-                    Edit
-                </button>
+                <div className="id-content-wrap">
+                    <span className="item-id">
+                        {item.id}
+                    </span>
+                    <span className="item-content">
+                        {item.content}
+                    </span>
+                </div>
 
+                <div>
+                    <button onClick={this.onDelete} id={item.id}>
+                        X
+                </button>
+                    <button onClick={this.onEdit} id={item.id}>
+                        Edit
+                </button>
+                </div>
             </li>
         )
         return (
             <div>
-                {
-                    this.state.info
-                }
+                <h2>
+                    {
+                        this.state.info
+                    }
+                </h2>
                 <h2>Your Tasks</h2>
 
-                <ul>
+                <ul className="tasks">
                     {items}
                 </ul>
                 <input type="text" value={this.state.newTaskContent} onChange={this.onChange} />
