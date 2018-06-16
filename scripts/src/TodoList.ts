@@ -4,38 +4,39 @@ class TodoList implements iTodoList {
     private idOfTodo: number = 0;
     private todoList: Array<iTodo> = [];
 
+    constructor() {
+        this.getTodoFromFile();
+    }
+
     getTodoList(): Object {
-        this.setTodoListFromFile();
-        return this.todoList
+        this.getTodoFromFile();
+        console.log("getting " + this.todoList.length)
+        return this.todoList;
     }
-
-    setTodoList(list: any) {
-        this.todoList = list;
-    }
-
 
     addTodo(todo: iTodo): void {
         todo.id = this.idOfTodo;
-
         this.todoList.push(todo);
         this.idOfTodo++;
+        this.saveTodosList();
     }
 
-
-    setTodoListFromFile(): void {
-        fs.readFile('./data.json', (err: any, result: Array<iTodo>) => {
-            this.todoList = JSON.parse(result);
-        });
+    getTodoFromFile() {
+        fs.readFile('./data.json')
+            .then((result: Object) => {
+                this.todoList = result;
+                console.log("inside + " + this.todoList.length);
+            })
+            .catch((err: any) => {
+                console.log(err);
+            })
     }
 
-    saveTodo(): void {
-
-        // fs.writeFile('./data.json', 'superhot');
-        // console.log("saved");
-        // fs.readFile('./data.json', (err: any, data: String) => {
-        //     console.log(data.toString());
-        // })
-
+    saveTodosList(): void {
+        fs.writeFile('./data.json', JSON.stringify(this.todoList))
+            .catch((err: any) => {
+                console.log(err);
+            })
     }
 
     deleteTodo(idToDelete: any): void {

@@ -45,7 +45,6 @@ class TodoList extends Component {
     }
 
     onEdit(e) {
-        console.log('editing item ' + e.target.id);
         var newTaskValue = window.prompt("Edit your task...");
         if (newTaskValue) {
             this.doPutRequest(e, newTaskValue);

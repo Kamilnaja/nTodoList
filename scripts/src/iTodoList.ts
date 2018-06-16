@@ -1,5 +1,5 @@
 interface iTodoList {
     addTodo(todo: Object): void;
-    saveTodo(): void;
+    saveTodosList(): void;
     getTodoList(): Object;
 }
