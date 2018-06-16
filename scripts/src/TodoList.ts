@@ -1,6 +1,18 @@
+const fs = require("fs-extra");
+
 class TodoList implements iTodoList {
     private idOfTodo: number = 0;
     private todoList: Array<iTodo> = [];
+
+    getTodoList(): Object {
+        this.setTodoListFromFile();
+        return this.todoList
+    }
+
+    setTodoList(list: any) {
+        this.todoList = list;
+    }
+
 
     addTodo(todo: iTodo): void {
         todo.id = this.idOfTodo;
@@ -9,8 +21,21 @@ class TodoList implements iTodoList {
         this.idOfTodo++;
     }
 
+
+    setTodoListFromFile(): void {
+        fs.readFile('./data.json', (err: any, result: Array<iTodo>) => {
+            this.todoList = JSON.parse(result);
+        });
+    }
+
     saveTodo(): void {
-        // todo - save to file
+
+        // fs.writeFile('./data.json', 'superhot');
+        // console.log("saved");
+        // fs.readFile('./data.json', (err: any, data: String) => {
+        //     console.log(data.toString());
+        // })
+
     }
 
     deleteTodo(idToDelete: any): void {
@@ -19,9 +44,7 @@ class TodoList implements iTodoList {
             idToDelete = parseInt(idToDelete, 10);
             if (element.id === idToDelete) {
                 this.todoList.splice(i, 1);
-            } else {
-                console.log("error")
-            }
+            };
         }
     }
 
@@ -34,9 +57,7 @@ class TodoList implements iTodoList {
         }
     }
 
-    displayTodos(): Object {
-        return this.todoList
-    }
+
 }
 
 export default TodoList
