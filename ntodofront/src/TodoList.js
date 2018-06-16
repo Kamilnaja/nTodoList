@@ -110,12 +110,12 @@ class TodoList extends Component {
                     }
                 </h2>
                 <h2>Your Tasks</h2>
-
+                <input type="text" className="task-input" value={this.state.newTaskContent} onChange={this.onChange} />
+                <button className="btn-task-input" value="submit" onClick={this.addTodo}>Submit</button>
                 <ul className="tasks">
                     {items}
                 </ul>
-                <input type="text" value={this.state.newTaskContent} onChange={this.onChange} />
-                <button value="submit" onClick={this.addTodo}>Submit</button>
+
             </div>
         )
     }

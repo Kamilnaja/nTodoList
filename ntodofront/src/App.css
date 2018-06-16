@@ -84,3 +84,20 @@ ul {
 .tasks li button:hover {
   color: bisque;
 }
+
+.task-input {
+  width: 50%;
+  height: 50px;
+  font-size: 25px;
+  padding-left: 15px;
+  margin-bottom: 20px;
+}
+
+.btn-task-input {
+  background-color: darkgoldenrod;
+  border: none;
+  padding: 10px 15px;
+  color: white;
+  text-transform: uppercase;
+  font-size: 25px;
+}
