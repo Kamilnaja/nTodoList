@@ -22,9 +22,19 @@ class TodoList extends Component {
         fetch(`${API_URL}/todo`)
             .then((response) => response.json())
             .then((responseData) => {
-                this.setState({
-                    todoList: responseData
-                })
+                if (responseData) {
+                    this.setState({
+                        todoList: responseData
+                    })
+                } else {
+                    this.setState({
+                        todoList: ""
+                    })
+                }
+
+            })
+            .catch(err => {
+                console.log(err);
             })
     }
 

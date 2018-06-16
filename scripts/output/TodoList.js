@@ -9,27 +9,28 @@ class TodoList {
     }
     getTodoList() {
         this.getTodoFromFile();
-        console.log("getting " + this.todoList.length);
         return this.todoList;
     }
     addTodo(todo) {
         todo.id = this.idOfTodo;
+        this.todoList = JSON.parse(this.todoList);
         this.todoList.push(todo);
+        console.log(this.todoList);
         this.idOfTodo++;
         this.saveTodosList();
     }
     getTodoFromFile() {
-        fs.readFile('./data.json')
+        fs.readJson('./data.json')
             .then((result) => {
-            this.todoList = result;
-            console.log("inside + " + this.todoList.length);
+            this.todoList = JSON.stringify(result);
         })
             .catch((err) => {
             console.log(err);
         });
     }
     saveTodosList() {
-        fs.writeFile('./data.json', JSON.stringify(this.todoList))
+        console.log(this.todoList);
+        fs.writeJson('./data.json', this.todoList)
             .catch((err) => {
             console.log(err);
         });

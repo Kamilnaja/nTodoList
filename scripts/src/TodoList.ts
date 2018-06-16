@@ -10,22 +10,23 @@ class TodoList implements iTodoList {
 
     getTodoList(): Object {
         this.getTodoFromFile();
-        console.log("getting " + this.todoList.length)
         return this.todoList;
     }
 
     addTodo(todo: iTodo): void {
         todo.id = this.idOfTodo;
+        this.todoList = JSON.parse(this.todoList);
         this.todoList.push(todo);
+        console.log(this.todoList);
+
         this.idOfTodo++;
         this.saveTodosList();
     }
 
     getTodoFromFile() {
-        fs.readFile('./data.json')
+        fs.readJson('./data.json')
             .then((result: Object) => {
-                this.todoList = result;
-                console.log("inside + " + this.todoList.length);
+                this.todoList = JSON.stringify(result);
             })
             .catch((err: any) => {
                 console.log(err);
@@ -33,7 +34,8 @@ class TodoList implements iTodoList {
     }
 
     saveTodosList(): void {
-        fs.writeFile('./data.json', JSON.stringify(this.todoList))
+        console.log(this.todoList);
+        fs.writeJson('./data.json', this.todoList)
             .catch((err: any) => {
                 console.log(err);
             })
